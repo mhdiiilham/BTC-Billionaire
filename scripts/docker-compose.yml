@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:12
+    container_name: btc_billionaire
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=btc_billionaire
+    ports:
+      - 25432:5432
+    volumes:
+      - ./xdata/pgsql:/var/lib/postgresql/data
+    restart: always
