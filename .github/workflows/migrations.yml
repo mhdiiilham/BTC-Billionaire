@@ -31,8 +31,8 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: Install Go sql-migrate
-      run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@$TAG
+    - name: Install golang-migrate
+      run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
       
     - name: Run Migrations
       run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }}
