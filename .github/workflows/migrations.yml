@@ -22,7 +22,7 @@ env:
 jobs:
   migrations:
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ github.event.inputs.environment }}
     steps:
     - uses: actions/checkout@v3
 
