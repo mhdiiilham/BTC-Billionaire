@@ -1,7 +1,7 @@
 .PHONY: dependencies migrate-create
 
 run: migrate-up
-	go run cmd/main.go --env=local
+	go run cmd/main.go
 
 test:
 	go test -race -cover ./...

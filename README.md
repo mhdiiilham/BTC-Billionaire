@@ -18,6 +18,21 @@ export POSTGRESQL_URL='postgres://postgres:password@localhost:5432/example?sslmo
 - To run migration up: `make migrate-up`
 - To create a new migration file: `make migrate-create`
 
+## Running on Local Machine
+1. Create `app.env` based on the `sample.env` file. This file should contain all the necessary environment variables for the application to run properly.
+
+2. Run the unit tests by executing the command `make test`. This will ensure that all the code is functioning as expected before running the server.
+
+3. Spin up the database using Docker based on the `docker-compose.yml` file in the scripts directory. This file contains all the necessary configurations to run a local instance of the database.
+```shell
+make dependencies
+# or
+docker-compose -f scripts/docker-compose.yml up
+```
+4. Run the server using the command `make run`. This will start the server and make it available on your specified port on localhost.
+
+<em>It is important to note that, you may need to modify the docker-compose.yml file to match with the database credentials and endpoint you are using. Also, make sure you have docker and docker-compose installed on your machine.</em>
+
 ## Deployment
 This project is deployed to Google Cloud Run. The action can be viewed in the directory `.github/workflows/deployment`. The URL for the deployed application is: https://btc-billionaire-4w6hwgpraa-uw.a.run.app
 
