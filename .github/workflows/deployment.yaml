@@ -32,10 +32,30 @@ jobs:
       - name: Run Migrations
         run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
 
-  generateEnv:
+  # generateEnv:
+  #   runs-on: ubuntu-latest
+  #   environment: ${{ github.event.inputs.environment }}
+  #   steps:
+  #     - name: Make envfile
+  #       uses: SpicyPizza/create-envfile@v1.3
+  #       with:
+  #         envkey_PORT: ${{ secrets.SERVICE_PORTS }}
+  #         envkey_DB_HOST: ${{ secrets.DB_HOST }}
+  #         envkey_DB_PORT: ${{ secrets.DB_PORT }}
+  #         envkey_DB_USER: ${{ secrets.DB_USER }}
+  #         envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  #         envkey_DB_NAME: btc_billionaire
+  #         file_name: app.env
+  #         fail_on_empty: false
+
+  deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
+    needs: [build]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
         with:
@@ -45,17 +65,8 @@ jobs:
           envkey_DB_USER: ${{ secrets.DB_USER }}
           envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           envkey_DB_NAME: btc_billionaire
-          directory: ${{ github.workspace }}
           file_name: app.env
           fail_on_empty: false
-
-  deploy:
-    runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
-    needs: [build, generateEnv]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
       - name: Setup Cloud cli
         uses: google-github-actions/setup-gcloud@v0.2.0
