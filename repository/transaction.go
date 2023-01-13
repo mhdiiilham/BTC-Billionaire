@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"errors"
 
 	"github.com/mhdiiilham/BTC-Billionaire/model"
 	"github.com/sirupsen/logrus"
@@ -16,6 +17,7 @@ var (
 	ON CONFLICT (datetime) DO update SET amount = (
 		SELECT amount + $1 FROM balance_histories WHERE datetime = $2
 	);`
+	QueryGetBalanceHistory = `SELECT datetime, amount FROM balance_histories WHERE datetime >= $1 AND datetime <= $2;`
 )
 
 type TransactionRepository struct {
@@ -46,4 +48,26 @@ func (r *TransactionRepository) UpdateHourlyBalance(ctx context.Context, transac
 	}
 
 	return nil
+}
+
+func (r *TransactionRepository) GetBalanceHistory(ctx context.Context, from, to string) ([]model.Transaction, error) {
+	result := []model.Transaction{}
+
+	rows, err := r.db.QueryContext(ctx, QueryGetBalanceHistory, from, to)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return result, nil
+		}
+
+		return nil, err
+	}
+
+	for rows.Next() {
+		var trx model.Transaction
+		rows.Scan(&trx.Datetime, &trx.Amount)
+		result = append(result, trx)
+
+	}
+
+	return result, nil
 }

@@ -126,6 +126,77 @@ func (suite *transactionRepositoryTestSuite) TestUpdateHourlyBalance() {
 	}
 }
 
+func (suite *transactionRepositoryTestSuite) TestGetBalanceHistory() {
+	testCases := []struct {
+		name        string
+		from        string
+		to          string
+		doMocks     func()
+		expected    []model.Transaction
+		expectedErr error
+	}{
+		{
+			name: "success",
+			from: "2020-01-13 14:00:00.000",
+			to:   "2021-01-13 14:00:00.000",
+			doMocks: func() {
+				row := sqlmock.NewRows([]string{"datetime", "amount"}).
+					AddRow(time.Date(2020, 02, 15, 12, 21, 0, 0, time.UTC), 10).
+					AddRow(time.Date(2020, 04, 15, 12, 21, 0, 0, time.UTC), 25)
+
+				suite.dbMock.
+					ExpectQuery(regexp.QuoteMeta(repository.QueryGetBalanceHistory)).
+					WithArgs("2020-01-13 14:00:00.000", "2021-01-13 14:00:00.000").
+					WillReturnRows(row)
+			},
+			expected: []model.Transaction{
+				{Datetime: time.Date(2020, 02, 15, 12, 21, 0, 0, time.UTC), Amount: 10},
+				{Datetime: time.Date(2020, 04, 15, 12, 21, 0, 0, time.UTC), Amount: 25},
+			},
+			expectedErr: nil,
+		},
+		{
+			name: "no rows",
+			from: "2020-01-13 14:00:00.000",
+			to:   "2021-01-13 14:00:00.000",
+			doMocks: func() {
+				suite.dbMock.
+					ExpectQuery(regexp.QuoteMeta(repository.QueryGetBalanceHistory)).
+					WithArgs("2020-01-13 14:00:00.000", "2021-01-13 14:00:00.000").
+					WillReturnError(sql.ErrNoRows)
+			},
+			expected:    []model.Transaction{},
+			expectedErr: nil,
+		},
+		{
+			name: "unexpected error",
+			from: "2020-01-13 14:00:00.000",
+			to:   "2021-01-13 14:00:00.000",
+			doMocks: func() {
+				suite.dbMock.
+					ExpectQuery(regexp.QuoteMeta(repository.QueryGetBalanceHistory)).
+					WithArgs("2020-01-13 14:00:00.000", "2021-01-13 14:00:00.000").
+					WillReturnError(sql.ErrConnDone)
+			},
+			expected:    nil,
+			expectedErr: sql.ErrConnDone,
+		},
+	}
+
+	t := suite.T()
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.doMocks()
+			ctx := context.Background()
+
+			transactionRepository := repository.NewTransactionRepository(suite.db)
+			actual, actualErr := transactionRepository.GetBalanceHistory(ctx, tt.from, tt.to)
+			assert.Equal(t, tt.expected, actual)
+			assert.Equal(t, tt.expectedErr, actualErr)
+		})
+	}
+}
+
 func (suite *transactionRepositoryTestSuite) SetupTest() {
 	db, mock, err := sqlmock.New()
 	if err != nil {
