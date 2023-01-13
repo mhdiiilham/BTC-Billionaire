@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "a5e788e6-58dd-4ecc-a295-51965aacc2ee",
+		"name": "BTC Billionaire",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9584176"
+	},
+	"item": [
+		{
+			"name": "Record New Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"datetime\": \"2021-01-13T14:45:06+07:00\",\n    \"amount\": 1.3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://btc-billionaire-4w6hwgpraa-uw.a.run.app/api/v1/transactions",
+					"protocol": "https",
+					"host": [
+						"btc-billionaire-4w6hwgpraa-uw",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Record New Transaction",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"datetime\": \"2019-10-05T14:45:05+07:00\",\n    \"amount\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://btc-billionaire-4w6hwgpraa-uw.a.run.app/api/v1/transactions",
+							"protocol": "https",
+							"host": [
+								"btc-billionaire-4w6hwgpraa-uw",
+								"a",
+								"run",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 13 Jan 2023 06:52:52 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "99"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 201,\n    \"message\": \"Created\",\n    \"data\": {\n        \"datetime\": \"2019-10-05T14:45:05+07:00\",\n        \"amount\": 10\n    }\n}"
+				},
+				{
+					"name": "Bad Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"datetime\": \"2019-10-05T14:45\",\n    \"amount\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://btc-billionaire-4w6hwgpraa-uw.a.run.app/api/api/v1/transactions",
+							"protocol": "https",
+							"host": [
+								"btc-billionaire-4w6hwgpraa-uw",
+								"a",
+								"run",
+								"app"
+							],
+							"path": [
+								"api",
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 13 Jan 2023 07:19:05 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "77"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"Bad Request\",\n    \"error\": \"invalid datetime format\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Balance Histories",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDatetime\": \"2019-10-05T14:00:00+07:00\",\n    \"endDatetime\":\"2021-01-13T14:00:00+07:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://btc-billionaire-4w6hwgpraa-uw.a.run.app/api/v1/transactions/balances",
+					"protocol": "https",
+					"host": [
+						"btc-billionaire-4w6hwgpraa-uw",
+						"a",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transactions",
+						"balances"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDatetime\": \"2019-10-05T14:00:00+07:00\",\n    \"endDatetime\":\"2023-01-13T14:00:00+07:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://btc-billionaire-4w6hwgpraa-uw.a.run.app/api/v1/transactions/balances",
+							"protocol": "https",
+							"host": [
+								"btc-billionaire-4w6hwgpraa-uw",
+								"a",
+								"run",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"balances"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=UTF-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 13 Jan 2023 15:50:12 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "206"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"OK\",\n    \"data\": [\n        {\n            \"datetime\": \"2019-10-05T14:00:00Z\",\n            \"amount\": 11.1\n        },\n        {\n            \"datetime\": \"2023-01-13T14:00:00Z\",\n            \"amount\": 2.4000000000000004\n        },\n        {\n            \"datetime\": \"2020-01-13T14:00:00Z\",\n            \"amount\": 1.3\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}

@@ -33,6 +33,11 @@ docker-compose -f scripts/docker-compose.yml up
 
 <em>It is important to note that, you may need to modify the docker-compose.yml file to match with the database credentials and endpoint you are using. Also, make sure you have docker and docker-compose installed on your machine.</em>
 
+## API Documentation
+The BTC-Billionaire server exposes a simple RESTful API for creating and retrieving Bitcoin transactions.
+
+You can find a Postman exported collection on the project root directory with the name `BTC Billionaire.postman_collection.json` You can import this collection into Postman to easily test the API endpoints and see examples of the expected request and response formats.
+
 ## Deployment
 This project is deployed to Google Cloud Run. The action can be viewed in the directory `.github/workflows/deployment`. The URL for the deployed application is: https://btc-billionaire-4w6hwgpraa-uw.a.run.app
 
