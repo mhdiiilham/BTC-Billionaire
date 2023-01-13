@@ -34,6 +34,7 @@ jobs:
 
   generateEnv:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
     steps:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
@@ -50,6 +51,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
     needs: [build, generateEnv]
     steps:
       - name: Checkout
