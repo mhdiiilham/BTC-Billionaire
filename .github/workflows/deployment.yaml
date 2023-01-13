@@ -45,7 +45,7 @@ jobs:
           envkey_DB_USER: ${{ secrets.DB_USER }}
           envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           envkey_DB_NAME: btc_billionaire
-          # directory: common
+          directory: .
           file_name: app.env
           fail_on_empty: false
 
