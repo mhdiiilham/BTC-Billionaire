@@ -38,6 +38,8 @@ The BTC-Billionaire server exposes a simple RESTful API for creating and retriev
 
 You can find a Postman exported collection on the project root directory with the name `BTC Billionaire.postman_collection.json` You can import this collection into Postman to easily test the API endpoints and see examples of the expected request and response formats.
 
+You can also visit this [Postman](https://documenter.getpostman.com/view/9584176/2s8ZDSbk2B) URL to view the API Documentation.
+
 ## Deployment
 This project is deployed to Google Cloud Run. The action can be viewed in the directory `.github/workflows/deployment`. The URL for the deployed application is: https://btc-billionaire-4w6hwgpraa-uw.a.run.app
 
