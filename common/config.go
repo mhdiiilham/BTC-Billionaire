@@ -23,8 +23,8 @@ func (c Configuration) GetServerPort() string {
 func ReadConfig() *Configuration {
 	var config Configuration
 
-	log.Println("reading config from env...")
-	viper.AddConfigPath("./common")
+	log.Printf("reading config from app.env")
+	viper.AddConfigPath(".")
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
 
