@@ -34,7 +34,7 @@ jobs: # Define jobs to run
         run: go test -race -cover -v ./...
 
       - name: Run Migrations
-        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }}
+        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
 
   generateEnv:
     runs-on: ubuntu-latest
@@ -54,6 +54,7 @@ jobs: # Define jobs to run
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [build, generateEnv]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
