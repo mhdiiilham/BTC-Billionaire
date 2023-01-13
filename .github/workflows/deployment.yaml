@@ -1,8 +1,4 @@
 name: Deployment
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-  SERVICE: btc-billionaire # google run service name
-  REGION: us-west1
 
 on:
   workflow_dispatch:
@@ -14,7 +10,7 @@ on:
           - DEV
           - PROD
 
-jobs: # Define jobs to run
+jobs:
 
   build:
     runs-on: ubuntu-latest
@@ -62,7 +58,7 @@ jobs: # Define jobs to run
       - name: Setup Cloud cli
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          project_id: ${{ env.PROJECT_ID }}
+          project_id: ${{ secrets.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
@@ -71,15 +67,15 @@ jobs: # Define jobs to run
 
       - name: Build and Push Container
         run: |-
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
-          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }} .
+          docker push gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }}
       - name: Deploy to Cloud Run
         id: gohibeesh
         uses: google-github-actions/deploy-cloudrun@v0.4.0
         with:
-          service: ${{ env.SERVICE }}
-          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
-          region: ${{ env.REGION }}
+          service: btc-billionaire
+          image: gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }}
+          region: us-west1
 
       - name: Show Output
         run: echo ${{ steps.gohibeesh.outputs.url }}
