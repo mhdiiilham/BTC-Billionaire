@@ -9,4 +9,5 @@ import (
 type TransactionRepository interface {
 	RecordTransaction(ctx context.Context, transaction model.Transaction) error
 	UpdateHourlyBalance(ctx context.Context, transaction model.Transaction) error
+	GetBalanceHistory(ctx context.Context, from, to string) ([]model.BalanceHistory, error)
 }

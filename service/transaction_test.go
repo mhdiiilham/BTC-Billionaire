@@ -135,6 +135,69 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 	}
 }
 
+func (suite *transactionTestsSuite) TestGetBalanceHistory() {
+	testCases := []struct {
+		name        string
+		fromDate    string
+		toDate      string
+		doMocks     func()
+		expected    []model.BalanceHistory
+		expectedErr error
+	}{
+		{
+			name:        "date is invalid format",
+			fromDate:    "january 10th, 2020",
+			toDate:      "february 10th, 2021",
+			doMocks:     func() {},
+			expected:    nil,
+			expectedErr: service.ErrInvalidDateTimeFormat,
+		},
+		{
+			name:     "success get balance histories",
+			fromDate: "2020-01-13T14:00:00+07:00",
+			toDate:   "2021-01-13T14:00:00+07:00",
+			doMocks: func() {
+				suite.
+					mockTransactionRepository.
+					EXPECT().
+					GetBalanceHistory(gomock.Any(), "2020-01-13T14:00:00+07:00", "2021-01-13T14:00:00+07:00").
+					Return([]model.BalanceHistory{{}, {}}, nil).
+					Times(1)
+			},
+			expected:    []model.BalanceHistory{{}, {}},
+			expectedErr: nil,
+		},
+		{
+			name:     "failed get balance histories",
+			fromDate: "2020-01-13T14:00:00+07:00",
+			toDate:   "2021-01-13T14:00:00+07:00",
+			doMocks: func() {
+				suite.
+					mockTransactionRepository.
+					EXPECT().
+					GetBalanceHistory(gomock.Any(), "2020-01-13T14:00:00+07:00", "2021-01-13T14:00:00+07:00").
+					Return(nil, sql.ErrConnDone).
+					Times(1)
+			},
+			expected:    nil,
+			expectedErr: sql.ErrConnDone,
+		},
+	}
+
+	t := suite.T()
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+			tt.doMocks()
+
+			service := service.NewTransactionService(suite.mockTransactionRepository)
+			actual, actualErr := service.GetBalanceHistory(ctx, tt.fromDate, tt.toDate)
+			assert.Equal(t, tt.expected, actual)
+			assert.Equal(t, tt.expectedErr, actualErr)
+		})
+	}
+}
+
 func (suite *transactionTestsSuite) SetupTest() {
 	t := suite.T()
 	suite.ctrl = gomock.NewController(t)

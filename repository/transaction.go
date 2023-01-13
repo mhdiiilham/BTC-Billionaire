@@ -50,8 +50,8 @@ func (r *TransactionRepository) UpdateHourlyBalance(ctx context.Context, transac
 	return nil
 }
 
-func (r *TransactionRepository) GetBalanceHistory(ctx context.Context, from, to string) ([]model.Transaction, error) {
-	result := []model.Transaction{}
+func (r *TransactionRepository) GetBalanceHistory(ctx context.Context, from, to string) ([]model.BalanceHistory, error) {
+	result := []model.BalanceHistory{}
 
 	rows, err := r.db.QueryContext(ctx, QueryGetBalanceHistory, from, to)
 	if err != nil {
@@ -63,7 +63,7 @@ func (r *TransactionRepository) GetBalanceHistory(ctx context.Context, from, to 
 	}
 
 	for rows.Next() {
-		var trx model.Transaction
+		var trx model.BalanceHistory
 		rows.Scan(&trx.Datetime, &trx.Amount)
 		result = append(result, trx)
 

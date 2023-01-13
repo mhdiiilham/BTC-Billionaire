@@ -132,7 +132,7 @@ func (suite *transactionRepositoryTestSuite) TestGetBalanceHistory() {
 		from        string
 		to          string
 		doMocks     func()
-		expected    []model.Transaction
+		expected    []model.BalanceHistory
 		expectedErr error
 	}{
 		{
@@ -149,7 +149,7 @@ func (suite *transactionRepositoryTestSuite) TestGetBalanceHistory() {
 					WithArgs("2020-01-13 14:00:00.000", "2021-01-13 14:00:00.000").
 					WillReturnRows(row)
 			},
-			expected: []model.Transaction{
+			expected: []model.BalanceHistory{
 				{Datetime: time.Date(2020, 02, 15, 12, 21, 0, 0, time.UTC), Amount: 10},
 				{Datetime: time.Date(2020, 04, 15, 12, 21, 0, 0, time.UTC), Amount: 25},
 			},
@@ -165,7 +165,7 @@ func (suite *transactionRepositoryTestSuite) TestGetBalanceHistory() {
 					WithArgs("2020-01-13 14:00:00.000", "2021-01-13 14:00:00.000").
 					WillReturnError(sql.ErrNoRows)
 			},
-			expected:    []model.Transaction{},
+			expected:    []model.BalanceHistory{},
 			expectedErr: nil,
 		},
 		{

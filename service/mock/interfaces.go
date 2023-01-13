@@ -35,6 +35,21 @@ func (m *MockTransactionRepository) EXPECT() *MockTransactionRepositoryMockRecor
 	return m.recorder
 }
 
+// GetBalanceHistory mocks base method.
+func (m *MockTransactionRepository) GetBalanceHistory(ctx context.Context, from, to string) ([]model.BalanceHistory, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetBalanceHistory", ctx, from, to)
+	ret0, _ := ret[0].([]model.BalanceHistory)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetBalanceHistory indicates an expected call of GetBalanceHistory.
+func (mr *MockTransactionRepositoryMockRecorder) GetBalanceHistory(ctx, from, to interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBalanceHistory", reflect.TypeOf((*MockTransactionRepository)(nil).GetBalanceHistory), ctx, from, to)
+}
+
 // RecordTransaction mocks base method.
 func (m *MockTransactionRepository) RecordTransaction(ctx context.Context, transaction model.Transaction) error {
 	m.ctrl.T.Helper()

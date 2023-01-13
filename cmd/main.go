@@ -31,6 +31,7 @@ func main() {
 	// /api/v1/tansactions handler
 	transactionsRoutes := apiV1.Group("/transactions")
 	transactionsRoutes.POST("", rest.StoreNewTransactionHandler(transactioner))
+	transactionsRoutes.POST("/balances", rest.GetBalanceHistoryHandler(transactioner))
 
 	go func() {
 		if err := e.Start(cfg.GetServerPort()); err != nil && !errors.Is(err, http.ErrServerClosed) {
