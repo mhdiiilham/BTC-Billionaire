@@ -35,7 +35,7 @@ func StoreNewTransactionHandler(transactioner Transactioner) echo.HandlerFunc {
 			)
 
 			switch {
-			case errors.Is(err, service.ErrInvalidDateTimeFormat):
+			case errors.Is(err, service.ErrInvalidDateTimeFormat) || errors.Is(err, service.ErrInvalidAmount):
 				statusCode = http.StatusBadRequest
 				errResp = err
 			default:

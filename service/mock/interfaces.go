@@ -48,3 +48,17 @@ func (mr *MockTransactionRepositoryMockRecorder) RecordTransaction(ctx, transact
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RecordTransaction", reflect.TypeOf((*MockTransactionRepository)(nil).RecordTransaction), ctx, transaction)
 }
+
+// UpdateHourlyBalance mocks base method.
+func (m *MockTransactionRepository) UpdateHourlyBalance(ctx context.Context, transaction model.Transaction) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateHourlyBalance", ctx, transaction)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateHourlyBalance indicates an expected call of UpdateHourlyBalance.
+func (mr *MockTransactionRepositoryMockRecorder) UpdateHourlyBalance(ctx, transaction interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateHourlyBalance", reflect.TypeOf((*MockTransactionRepository)(nil).UpdateHourlyBalance), ctx, transaction)
+}

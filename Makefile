@@ -1,9 +1,10 @@
 .PHONY: dependencies migrate-create
 
-run:
+run: migrate-up
+	go run cmd/main.go
 
 test:
-	go test -race -v ./...
+	go test -race -cover ./...
 
 dependencies:
 	docker compose -f scripts/docker-compose.yml up -d

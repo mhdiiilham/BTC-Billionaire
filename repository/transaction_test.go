@@ -74,6 +74,58 @@ func (suite *transactionRepositoryTestSuite) TestRecordTransaction() {
 	}
 }
 
+func (suite *transactionRepositoryTestSuite) TestUpdateHourlyBalance() {
+	trxTime, err := time.Parse(time.RFC3339, "2019-10-05T14:45:05+07:00")
+	if err != nil {
+		suite.FailNowf("failed to convert string time to time.Time", "error: %v", err)
+	}
+	amount := float64(10)
+
+	testCases := []struct {
+		name        string
+		transaction model.Transaction
+		doMocks     func()
+		expected    error
+	}{
+		{
+			name:        "success",
+			transaction: model.Transaction{Datetime: trxTime, Amount: amount},
+			doMocks: func() {
+				hourlyDate := trxTime.Format("2006-01-02 15:00:00")
+				suite.dbMock.
+					ExpectExec(regexp.QuoteMeta(repository.QueryUpdateBalance)).
+					WithArgs(amount, hourlyDate).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+			},
+			expected: nil,
+		},
+		{
+			name:        "failed",
+			transaction: model.Transaction{Datetime: trxTime, Amount: amount},
+			doMocks: func() {
+				hourlyDate := trxTime.Format("2006-01-02 15:00:00")
+				suite.dbMock.
+					ExpectExec(regexp.QuoteMeta(repository.QueryUpdateBalance)).
+					WithArgs(amount, hourlyDate).
+					WillReturnError(sql.ErrConnDone)
+			},
+			expected: sql.ErrConnDone,
+		},
+	}
+
+	t := suite.T()
+	for _, tt := range testCases {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.doMocks()
+			ctx := context.Background()
+
+			transactionRepository := repository.NewTransactionRepository(suite.db)
+			actual := transactionRepository.UpdateHourlyBalance(ctx, tt.transaction)
+			assert.Equal(t, tt.expected, actual, "transactionRepository.UpdateHourlyBalance should return %v instead of %v", tt.expected, actual)
+		})
+	}
+}
+
 func (suite *transactionRepositoryTestSuite) SetupTest() {
 	db, mock, err := sqlmock.New()
 	if err != nil {

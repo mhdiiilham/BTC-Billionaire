@@ -33,6 +33,13 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 		expected error
 	}{
 		{
+			name:     "amount is less or equal than zero",
+			dateTime: "2019-10-05T14:45:05+07:00",
+			amount:   0,
+			doMocks:  func() {},
+			expected: service.ErrInvalidAmount,
+		},
+		{
 			name:     "failed to covert dateTime string to time.Time",
 			dateTime: "january the third",
 			amount:   10,
@@ -46,13 +53,23 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 			doMocks: func() {
 
 				trxTime, _ := time.Parse(time.RFC3339, "2019-10-05T14:45:05+07:00")
+				trx := model.Transaction{
+					Datetime: trxTime,
+					Amount:   10,
+				}
+
 				suite.
 					mockTransactionRepository.
 					EXPECT().
-					RecordTransaction(gomock.Any(), model.Transaction{
-						Datetime: trxTime,
-						Amount:   10,
-					}).Return(nil).
+					RecordTransaction(gomock.Any(), trx).
+					Return(nil).
+					Times(1)
+
+				suite.
+					mockTransactionRepository.
+					EXPECT().
+					UpdateHourlyBalance(gomock.Any(), trx).
+					Return(nil).
 					Times(1)
 			},
 			expected: nil,
@@ -74,6 +91,34 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 					Times(1)
 			},
 			expected: sql.ErrConnDone,
+		},
+		{
+			name:     "failed to update balance",
+			dateTime: "2019-10-05T14:45:05+07:00",
+			amount:   10,
+			doMocks: func() {
+
+				trxTime, _ := time.Parse(time.RFC3339, "2019-10-05T14:45:05+07:00")
+				trx := model.Transaction{
+					Datetime: trxTime,
+					Amount:   10,
+				}
+
+				suite.
+					mockTransactionRepository.
+					EXPECT().
+					RecordTransaction(gomock.Any(), trx).
+					Return(nil).
+					Times(1)
+
+				suite.
+					mockTransactionRepository.
+					EXPECT().
+					UpdateHourlyBalance(gomock.Any(), trx).
+					Return(sql.ErrConnDone).
+					Times(1)
+			},
+			expected: nil,
 		},
 	}
 
