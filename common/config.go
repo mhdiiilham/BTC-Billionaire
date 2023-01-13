@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
@@ -13,6 +14,10 @@ type Configuration struct {
 	DBUser     string `mapstructure:"DB_USER"`
 	DBPassword string `mapstructure:"DB_PASSWORD"`
 	DBName     string `mapstructure:"DB_NAME"`
+}
+
+func (c Configuration) GetServerPort() string {
+	return fmt.Sprintf(":%d", c.Port)
 }
 
 func ReadConfig() *Configuration {
@@ -33,5 +38,6 @@ func ReadConfig() *Configuration {
 		log.Fatalf("failed unmarshal config: %v", err)
 	}
 
+	log.Println("success reading config from app.env")
 	return &config
 }
