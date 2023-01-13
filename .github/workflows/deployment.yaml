@@ -82,6 +82,7 @@ jobs:
         run: |-
           docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }} .
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }}
+
       - name: Deploy to Cloud Run
         id: gohibeesh
         uses: google-github-actions/deploy-cloudrun@v0.4.0
