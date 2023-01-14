@@ -1,6 +1,10 @@
 # BTC-Billionaire
 
 <p align="center">
+    <a href="https://goreportcard.com/report/github.com/mhdiiilham/BTC-Billionaire" target="_blank"><img src="https://goreportcard.com/badge/github.com/mhdiiilham/BTC-Billionaire" /></a>
+</p>
+
+<p align="center">
     <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/ci.yml/badge.svg" />
     <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/migrations.yml/badge.svg" />
     <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/deployment.yaml/badge.svg" />
