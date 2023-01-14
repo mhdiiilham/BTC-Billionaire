@@ -24,6 +24,9 @@ func main() {
 	// define service
 	transactioner := service.NewTransactionService(transactionRepository)
 
+	// Handle 404 error
+	echo.NotFoundHandler = rest.RouteNotFoundHandler()
+
 	// routing
 	e := echo.New()
 	apiV1 := e.Group("api/v1")
