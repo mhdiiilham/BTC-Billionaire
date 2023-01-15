@@ -9,25 +9,6 @@ on:
       - main
 
 jobs:
-  # release:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v3
-
-  #   - name: Semantic Release
-  #     uses: codfish/semantic-release-action@v2
-  #     with:
-  #       repository_url: https://github.com/mhdiiilham/BTC-Billionaire.git
-  #       tag_format: 'v${version}'
-  #       # You can specify specifying version range for the extra plugins if you prefer.
-  #       additional_packages: |
-  #         ['@semantic-release/changelog', '@semantic-release/git']
-  #       plugins: |
-  #         ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github']
-  #     env:
-  #       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-  #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   release:
     name: Release
     runs-on: ubuntu-latest
