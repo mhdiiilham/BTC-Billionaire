@@ -12,5 +12,5 @@ jobs:
     - name: Bump version and push tag
       uses: anothrNick/github-tag-action@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         REPO_OWNER: mhdiiilham
