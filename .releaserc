@@ -20,4 +20,5 @@
                 "message": "released new version [skip ci]: ${nextRelease.version}\n\n${nextRelease.notes}"
             }
         ]
+    ]
 }
