@@ -5,7 +5,6 @@ on:
       - main
 
 jobs:
-  # build:
   release:
     runs-on: ubuntu-latest
     steps:
@@ -13,14 +12,6 @@ jobs:
       - uses: go-semantic-release/action@v1
         with:
           github-token: ${{ secrets.GH_TOKEN }}
-          changelog-file: true
+          changelog-file: CHANGELOG.md
+          prepend: true
           changelog-generator-opt: "emojis=true"
-    # runs-on: ubuntu-latest
-    # steps:
-    # - uses: actions/checkout@master
-    # - name: Bump version and push tag
-    #   uses: anothrNick/github-tag-action@master
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    #     REPO_OWNER: mhdiiilham
-    #     WITH_V: true
