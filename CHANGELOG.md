@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+# [1.5.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.4.8...v1.5.0) (2023-01-15)
+
+
+### Features
+
+* Final Workflows For Semantic Release ([765adbf](https://github.com/mhdiiilham/BTC-Billionaire/commit/765adbf1d742d62b4ee36b403610b467a8bf2519))
+
 ## [1.4.8](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.4.7...v1.4.8) (2023-01-15)
 
 
