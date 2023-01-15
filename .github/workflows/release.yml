@@ -17,6 +17,7 @@ jobs:
     #       changelog-generator-opt: "emojis=true"
     steps:
     - run: npx semantic-release
+    - uses: actions/setup-node@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
