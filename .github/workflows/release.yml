@@ -31,9 +31,9 @@ jobs:
         tag_format: 'v${version}'
         # You can specify specifying version range for the extra plugins if you prefer.
         additional_packages: |
-          ['@semantic-release/apm@4.0.0', '@semantic-release/git', '@semantic-release/changelog']
+          ['@semantic-release/git', '@semantic-release/changelog']
         plugins: |
-          ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github', '@semantic-release/apm', '@semantic-release/git']
+          ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/git']
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
