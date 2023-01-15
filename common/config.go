@@ -8,6 +8,7 @@ import (
 )
 
 type Configuration struct {
+	Version    string `mapstructure:"VERSION"`
 	Port       int    `mapstructure:"PORT"`
 	DBHost     string `mapstructure:"DB_HOST"`
 	DBPort     string `mapstructure:"DB_PORT"`
