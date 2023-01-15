@@ -15,6 +15,3 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         REPO_OWNER: mhdiiilham
         WITH_V: true
-        MAJOR_STRING_TOKEN: 'BREAKING CHANGE!'
-        MINOR_STRING_TOKEN: 'feat:'
-        PATCH_STRING_TOKEN: 'fix:'
