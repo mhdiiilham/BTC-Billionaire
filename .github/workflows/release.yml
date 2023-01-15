@@ -7,11 +7,16 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # steps:
+    #   - uses: actions/checkout@master
+    #   - uses: go-semantic-release/action@v1
+    #     with:
+    #       github-token: ${{ secrets.GH_TOKEN }}
+    #       changelog-file: CHANGELOG.md
+    #       prepend: true
+    #       changelog-generator-opt: "emojis=true"
     steps:
-      - uses: actions/checkout@master
-      - uses: go-semantic-release/action@v1
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          changelog-file: CHANGELOG.md
-          prepend: true
-          changelog-generator-opt: "emojis=true"
+    - run: npx semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

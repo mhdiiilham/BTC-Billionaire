@@ -1,0 +1,23 @@
+{
+    "branches": ["main"],
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        [
+            "@semantic-release/changelog", {
+                "changelogFile": "CHANGELOG.md",
+                "changelogTitle": "# Semantic Versioning Changelog"
+            }
+        ],
+        [
+            "@semantic-release/exec", {
+                "prepareCmd": "./scripts/prepare-release.sh ${nextRelease.version}"
+            }
+        ],
+        [
+            "@semantic-release/git", {
+                "assets": [ "CHANGELOG.md", "reports/static-code-analysis.html" ],
+                "message": "released new version [skip ci]: ${nextRelease.version}\n\n${nextRelease.notes}"
+            }
+        ]
+}
