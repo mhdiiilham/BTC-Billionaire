@@ -21,10 +21,8 @@ jobs:
         repository_url: https://github.com/mhdiiilham/BTC-Billionaire.git
         tag_format: 'v${version}'
         # You can specify specifying version range for the extra plugins if you prefer.
-        additional_packages: |
-          ['@semantic-release/changelog', '@semantic-release/git']
         plugins: |
-          ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github']
+          ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/changelog', '@semantic-release/git', '@semantic-release/github']
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
