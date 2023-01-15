@@ -7,7 +7,10 @@ on:
   push:
     branches: [ "main" ]
     paths-ignore:
-      - .github/*
+      - '.github/workflows/**'
+      - 'README.md'
+      - 'sample.env'
+      - 'BTC Billionaire.postman_collection.json'
 
   pull_request:
     branches: [ "main" ]
