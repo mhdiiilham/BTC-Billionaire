@@ -25,7 +25,7 @@ func main() {
 	transactioner := service.NewTransactionService(transactionRepository)
 
 	// Handle 404 error
-	echo.NotFoundHandler = rest.RouteNotFoundHandler()
+	echo.NotFoundHandler = rest.RouteNotFoundHandler(cfg)
 
 	// routing
 	e := echo.New()
