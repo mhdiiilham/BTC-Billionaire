@@ -11,22 +11,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    # steps:
-    #   - uses: actions/checkout@master
-    #   - uses: go-semantic-release/action@v1
-    #     with:
-    #       github-token: ${{ secrets.GH_TOKEN }}
-    #       changelog-file: CHANGELOG.md
-    #       prepend: true
-    #       changelog-generator-opt: "emojis=true"
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
-    # - name: Node.JS Version 18
-    #   uses: actions/setup-node@v3
-    #   with:
-    #     node-version: 18
 
     - name: Semantic Release
       uses: codfish/semantic-release-action@v2
@@ -37,7 +24,7 @@ jobs:
         additional_packages: |
           ['@semantic-release/git', '@semantic-release/changelog']
         plugins: |
-          ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/git']
+          ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github', '@semantic-release/apm', '@semantic-release/git']
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
