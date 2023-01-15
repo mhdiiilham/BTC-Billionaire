@@ -11,8 +11,13 @@
         ],
         [
             "@semantic-release/git", {
-                "assets": [ "CHANGELOG.md", "reports/static-code-analysis.html" ],
+                "assets": ["CHANGELOG.md"],
                 "message": "released new version [skip ci]: ${nextRelease.version}\n\n${nextRelease.notes}"
+            }
+        ],
+        [
+            "@semantic-release/github", {
+              "assets": ["CHANGELOG.md"]
             }
         ]
     ]
