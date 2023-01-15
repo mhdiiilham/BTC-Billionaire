@@ -11,7 +11,6 @@ on:
           - PROD
 
 jobs:
-
   setup:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
@@ -32,7 +31,7 @@ jobs:
       - name: Run Migrations
         run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
 
-  deploy:
+  deployment:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     needs: [setup]
@@ -64,15 +63,15 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }} .
-          docker push gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }}
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.ref_name }} .
+          docker push gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.ref_name }}
 
       - name: Deploy to Cloud Run
         id: gohibeesh
         uses: google-github-actions/deploy-cloudrun@v0.4.0
         with:
           service: btc-billionaire
-          image: gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.sha }}
+          image: gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.ref_name }}
           region: us-west1
 
       - name: Show Output
