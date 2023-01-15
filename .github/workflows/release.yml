@@ -42,8 +42,8 @@ jobs:
         with:
           node-version: "lts/*"
 
-      - name: Install Changelog
-        run: npm install @semantic-release/changelog -D
+      - name: Install Plugins
+        run: npm install @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/git @semantic-release/github -D
 
       - name: Release
         env:
