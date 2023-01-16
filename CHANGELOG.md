@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+# [1.6.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.5.1...v1.6.0) (2023-01-16)
+
+
+### Features
+
+* Changed The Response of GET api/v1/transactions/balances ([f0ecf6d](https://github.com/mhdiiilham/BTC-Billionaire/commit/f0ecf6dac183ed4d2cab40a90d5f232f73cc1f50))
+
 ## [1.5.1](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.5.0...v1.5.1) (2023-01-16)
 
 
