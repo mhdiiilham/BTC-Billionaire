@@ -95,8 +95,7 @@ func GetBalanceHistoryHandler(transactioner Transactioner) echo.HandlerFunc {
 			return c.JSON(statusCode, resp)
 		}
 
-		resp := model.HTTPResponse{StatusCode: http.StatusOK, Message: http.StatusText(http.StatusOK), Data: balanceHistories}
-		return c.JSON(resp.StatusCode, resp)
+		return c.JSON(http.StatusOK, balanceHistories)
 
 	}
 }
