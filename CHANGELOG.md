@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.7.1](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.7.0...v1.7.1) (2023-01-24)
+
+
+### Bug Fixes
+
+* Reverse Back Using Alpine Image ([cd6c5a7](https://github.com/mhdiiilham/BTC-Billionaire/commit/cd6c5a7be92667132848b5fd051e72c191de1148))
+
 # [1.7.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.6.1...v1.7.0) (2023-01-24)
 
 
