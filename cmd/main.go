@@ -16,8 +16,10 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var version = "v0.0.0"
+
 func main() {
-	cfg := common.ReadConfig()
+	cfg := common.ReadConfig(version)
 	db := common.ConnectToSQL(cfg)
 
 	// define repository

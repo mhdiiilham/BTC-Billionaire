@@ -21,7 +21,7 @@ func (c Configuration) GetServerPort() string {
 	return fmt.Sprintf(":%d", c.Port)
 }
 
-func ReadConfig() *Configuration {
+func ReadConfig(version string) *Configuration {
 	var config Configuration
 
 	log.Printf("reading config from app.env")
@@ -39,6 +39,7 @@ func ReadConfig() *Configuration {
 		log.Fatalf("failed unmarshal config: %v", err)
 	}
 
+	config.Version = version
 	log.Println("success reading config from app.env")
 	return &config
 }

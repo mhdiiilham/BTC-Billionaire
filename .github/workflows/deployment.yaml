@@ -39,6 +39,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      
+
       - name: Create app.env File
         uses: SpicyPizza/create-envfile@v1.3
         with:
@@ -48,7 +50,6 @@ jobs:
           envkey_DB_USER: ${{ secrets.DB_USER }}
           envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           envkey_DB_NAME: btc_billionaire
-          envkey_VERSION: ${{  github.ref_name }}
           file_name: app.env
           fail_on_empty: false
 
@@ -64,7 +65,7 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.ref_name }} .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.ref_name }} --build-arg VERSION=${{  github.ref_name }} .
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/btc-billionaire:${{  github.ref_name }}
 
       - name: Deploy to Cloud Run
