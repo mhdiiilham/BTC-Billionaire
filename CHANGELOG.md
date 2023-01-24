@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+# [1.7.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.6.1...v1.7.0) (2023-01-24)
+
+
+### Features
+
+* update dockerfile and graceful shutdown configuration ([cdc85f0](https://github.com/mhdiiilham/BTC-Billionaire/commit/cdc85f019c7d14d5b8b1bbf058606085d1de24d0))
+
 ## [1.6.1](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.6.0...v1.6.1) (2023-01-16)
 
 
