@@ -3,11 +3,12 @@ RUN apk update && apk add --no-cache git
 WORKDIR /btc-billionaire
 COPY . /btc-billionaire/
 RUN go mod tidy
-RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o btc-billionaire cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags="-s -w" -o btc-billionaire cmd/main.go
 
 FROM scratch
-WORKDIR /server
-COPY --from=builder /btc-billionaire/btc-billionaire /server/btc-billionaire
-COPY --from=builder /btc-billionaire/app.env /server/app.env
+# RUN mkdir /server
+# WORKDIR /server
+COPY --from=builder /btc-billionaire/btc-billionaire .
+COPY --from=builder /btc-billionaire/app.env .
 EXPOSE 8089
-CMD [ "/server/btc-billionaire" ]
+CMD [ "/btc-billionaire" ]
