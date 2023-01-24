@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+# [1.8.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.7.3...v1.8.0) (2023-01-24)
+
+
+### Features
+
+* Deploy New Version ([e7e3f08](https://github.com/mhdiiilham/BTC-Billionaire/commit/e7e3f081c311401edbdd29791097599a5cd15622))
+
 ## [1.7.3](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.7.2...v1.7.3) (2023-01-24)
 
 
