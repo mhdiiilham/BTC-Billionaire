@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.7.2](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.7.1...v1.7.2) (2023-01-24)
+
+
+### Bug Fixes
+
+* Try Again Docker Scratch ([60eae1f](https://github.com/mhdiiilham/BTC-Billionaire/commit/60eae1f2f50f3d4ea583f2765887686be1808f06))
+
 ## [1.7.1](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.7.0...v1.7.1) (2023-01-24)
 
 
