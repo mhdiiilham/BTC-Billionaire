@@ -5,10 +5,10 @@ COPY . /btc-billionaire/
 RUN go mod tidy
 RUN go build -o btc-billionaire cmd/main.go
 
-FROM alpine
+FROM scratch
 RUN mkdir /server
 WORKDIR /server
-COPY --from=builder /btc-billionaire/btc-billionaire /server/btc-billionaire
-COPY --from=builder /btc-billionaire/app.env /server/app.env
+COPY --from=builder /btc-billionaire/btc-billionaire .
+COPY --from=builder /btc-billionaire/app.env .
 EXPOSE 8089
-CMD [ "/server/btc-billionaire" ]
+CMD [ "/btc-billionaire" ]

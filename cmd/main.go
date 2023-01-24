@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"os"
 	"os/signal"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/mhdiiilham/BTC-Billionaire/common"
@@ -46,6 +48,10 @@ func main() {
 	logrus.Info("waiting shutdown signal")
 	signal.Notify(quit, os.Interrupt)
 	<-quit
+	ctx, done := context.WithTimeout(context.Background(), 30*time.Second)
+	defer done()
+
+	logrus.Infof("shutting down echo server; error=%v", e.Shutdown(ctx))
 	logrus.Info("server is shuting down...")
 	logrus.Infof("closing db connection; %v", db.Close())
 
