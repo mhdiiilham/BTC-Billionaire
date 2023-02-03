@@ -43,8 +43,4 @@ jobs:
       run: migrate create -ext sql -dir ${{ github.event.inputs.directory }} -seq ${{ github.event.inputs.name }}
 
     - name: Push branch
-      run: |
-        echo "adding new migration template..."
-        git add ${{ github.event.inputs.directory }}
-        echo "Push new branch..."
-        git push origin ${{ github.event.inputs.name }}
+      run: git add ${{ github.event.inputs.directory }} && git push origin ${{ github.event.inputs.name }}
