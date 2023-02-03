@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+# [1.9.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.8.0...v1.9.0) (2023-02-03)
+
+
+### Features
+
+* created workflows to create new migration ([10c1add](https://github.com/mhdiiilham/BTC-Billionaire/commit/10c1add9760ce675fa17b9cdfb0cd35b78f5e593))
+
 # [1.8.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.7.3...v1.8.0) (2023-01-24)
 
 
