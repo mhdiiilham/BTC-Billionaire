@@ -17,6 +17,7 @@ on:
         type: string
         description: "directory where you store the migration files"
         required: true
+        default: migrations
 
 
 jobs:
@@ -39,7 +40,7 @@ jobs:
       run: git checkout -b ${{ github.event.inputs.name }}
 
     - name: Create migration file
-      run: migrate create -ext sql -dir migrations -seq ${{ github.event.inputs.name }}
+      run: migrate create -ext sql -dir ${{ github.event.inputs.directory }} -seq ${{ github.event.inputs.name }}
 
     - name: Push branch
       run: git push origin ${{ github.event.inputs.name }}
