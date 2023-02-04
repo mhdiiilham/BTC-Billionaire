@@ -44,6 +44,8 @@ jobs:
 
     - name: Push branch
       run: |
+        git config --global user.email "create-migration@muhammadilham.xyz"
+        git config --global user.name "[bot] Create Migration"
         echo "adding new migration template..."
         git add ${{ github.event.inputs.directory }}
         git commit -m "${{ github.event.inputs.name }}"
