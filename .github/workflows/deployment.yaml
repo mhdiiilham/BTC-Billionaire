@@ -28,6 +28,7 @@ jobs:
   secret:
     runs-on: ubuntu-latest
     name: Create Secret app.env File
+    environment: ${{ github.event.inputs.environment }}
     outputs:
       envfile: ${{ steps.stepCreate.outputs.value }}
     steps:
@@ -52,6 +53,7 @@ jobs:
         run: cat app.env >> $GITHUB_OUTPUT
 
   deployment:
+    name: Deployment
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     needs: [init, secret]
