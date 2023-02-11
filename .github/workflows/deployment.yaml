@@ -58,10 +58,12 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
-          run: gcloud beta run services set-iam-policy deployment/policy.yaml
 
       - name: Authorize Docker push
         run: gcloud auth configure-docker
+
+      - name: Set Cloud Run Policy
+        run: gcloud beta run services set-iam-policy deployment/policy.yaml
 
       - name: Build and Push Container
         run: |-
