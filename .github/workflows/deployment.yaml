@@ -29,7 +29,7 @@ jobs:
         run: go test -race -cover -v ./...
 
       - name: Run Migrations
-        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
+        run: migrate -database postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}/btc_billionaire -path migrations ${{ github.event.inputs.migrate }} up
 
   deployment:
     runs-on: ubuntu-latest
