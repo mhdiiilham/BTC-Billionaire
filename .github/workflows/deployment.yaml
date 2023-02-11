@@ -24,13 +24,28 @@ jobs:
 
       - name: Run Unit Test
         run: go test -race -cover -v ./...
-
-  secret:
+  
+  migration:
+    name: Run Pending Migration
     runs-on: ubuntu-latest
-    name: Create Secret app.env File
     environment: ${{ github.event.inputs.environment }}
-    outputs:
-      envfile: ${{ steps.stepCreate.outputs.value }}
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      - name: Install golang-migrate
+        run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+      - name: Run Pending Migration(s)
+        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
+
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    needs: [init, migration]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -47,35 +62,6 @@ jobs:
           envkey_DB_NAME: btc_billionaire
           file_name: app.env
           fail_on_empty: false
-
-      - name: Save result to output
-        id: stepCreate
-        run: cat app.env >> $GITHUB_OUTPUT
-
-  deployment:
-    name: Deployment
-    runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
-    needs: [init, secret]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Get Secret Values
-        run: | 
-          echo ${{ needs.secret.outputs.envfile }} >> app.env
-          cat $(cat app.env)
-
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.19
-
-      - name: Install golang-migrate
-        run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-
-      - name: Run Migrations
-        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
 
       - name: Setup Cloud cli
         uses: google-github-actions/setup-gcloud@v0.2.0
