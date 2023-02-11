@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.10.3](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.10.2...v1.10.3) (2023-02-11)
+
+
+### Bug Fixes
+
+* databse connection ([85eefe2](https://github.com/mhdiiilham/BTC-Billionaire/commit/85eefe2652d9c8501e6a35ed605c1d604d5f3d3e))
+
 ## [1.10.2](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.10.1...v1.10.2) (2023-02-11)
 
 
