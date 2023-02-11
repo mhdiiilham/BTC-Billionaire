@@ -8,6 +8,7 @@
     <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/ci.yml/badge.svg" />
     <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/migrations.yml/badge.svg" />
     <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/deployment.yaml/badge.svg" />
+    <img src="https://github.com/mhdiiilham/BTC-Billionaire/actions/workflows/release.yml/badge.svg" />
 </p>
 
 Welcome to BTC-Billionaire, a Go-based web server for handling POST and GET requests for Bitcoin transactions. This repository contains all the necessary code and instructions for setting up and running your own BTC-Billionaire server.
