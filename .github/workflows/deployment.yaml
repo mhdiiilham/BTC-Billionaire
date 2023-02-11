@@ -11,9 +11,9 @@ on:
           - PROD
 
 jobs:
-  setup:
+  init:
+    name: "Unit Test"
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
     steps:
       - uses: actions/checkout@v3
 
@@ -22,19 +22,14 @@ jobs:
         with:
           go-version: 1.19
 
-      - name: Install golang-migrate
-        run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-
       - name: Run Unit Test
         run: go test -race -cover -v ./...
 
-      - name: Run Migrations
-        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
-
-  deployment:
+  secret:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
-    needs: [setup]
+    name: Create Secret app.env File
+    outputs:
+      envfile: ${{ steps.stepCreate.outputs.value }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -52,6 +47,27 @@ jobs:
           file_name: app.env
           fail_on_empty: false
 
+      - name: Save result to output
+        id: stepCreate
+        run: cat app.env >> $GITHUB_OUTPUT
+
+  deployment:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    needs: [init, secret]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get Secret Values
+        run: echo ${{ needs.secret.outputs.envfile }} >> app.env
+
+      - name: Install golang-migrate
+        run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+      - name: Run Migrations
+        run: migrate -database ${{ secrets.POSTGRESQL_URL }} -path migrations ${{ github.event.inputs.migrate }} up
+
       - name: Setup Cloud cli
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
@@ -61,9 +77,6 @@ jobs:
 
       - name: Authorize Docker push
         run: gcloud auth configure-docker
-
-      - name: Set Cloud Run Policy
-        run: gcloud run services set-iam-policy deployment/policy.yaml
 
       - name: Build and Push Container
         run: |-
