@@ -63,7 +63,7 @@ jobs:
         run: gcloud auth configure-docker
 
       - name: Set Cloud Run Policy
-        run: gcloud beta run services set-iam-policy deployment/policy.yaml
+        run: gcloud run services set-iam-policy deployment/policy.yaml
 
       - name: Build and Push Container
         run: |-
