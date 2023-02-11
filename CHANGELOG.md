@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.10.5](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.10.4...v1.10.5) (2023-02-11)
+
+
+### Bug Fixes
+
+* workflows ([269feed](https://github.com/mhdiiilham/BTC-Billionaire/commit/269feeda0e19c46b834f998733f0484d3c1706f4))
+
 ## [1.10.4](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.10.3...v1.10.4) (2023-02-11)
 
 
