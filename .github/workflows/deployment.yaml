@@ -47,7 +47,7 @@ jobs:
           envkey_DB_PORT: ${{ secrets.DB_PORT }}
           envkey_DB_USER: ${{ secrets.DB_USER }}
           envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          envkey_DB_SSLMODE: ${{ secrets.DB_SSL_MODE }}
+          envkey_DB_SSLMODE: ${{ secrets.DB_SSLMODE }}
           envkey_DB_NAME: btc_billionaire
           file_name: app.env
           fail_on_empty: false
