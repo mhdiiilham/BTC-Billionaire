@@ -1,5 +1,22 @@
 # Semantic Versioning Changelog
 
+# [1.10.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.9.0...v1.10.0) (2023-02-11)
+
+
+### Bug Fixes
+
+* workflows ([6e23243](https://github.com/mhdiiilham/BTC-Billionaire/commit/6e232438bedb846cd45c356375fc3e756a99f989))
+
+
+### Features
+
+* created workflows to create new migration ([0ba0761](https://github.com/mhdiiilham/BTC-Billionaire/commit/0ba0761273962dccd32ac285cb19b65d182f8eaf))
+* created workflows to create new migration ([37936ff](https://github.com/mhdiiilham/BTC-Billionaire/commit/37936ff7a08e3849f0af5c3ed489acb8807e1b57))
+* created workflows to create new migration ([5872192](https://github.com/mhdiiilham/BTC-Billionaire/commit/5872192b0c99c7fb9420e6620a3f5d126ee952e6))
+* created workflows to create new migration ([dd6d6b7](https://github.com/mhdiiilham/BTC-Billionaire/commit/dd6d6b788b78ed5658bcee12b65184b45fe1a9d5))
+* created workflows to create new migration ([f518809](https://github.com/mhdiiilham/BTC-Billionaire/commit/f518809c00eaeb3b5a294cdd4ba67a77d6224609))
+* migration ([ce714de](https://github.com/mhdiiilham/BTC-Billionaire/commit/ce714de676f372a8fbb372f750c44bc887dfe973))
+
 # [1.9.0](https://github.com/mhdiiilham/BTC-Billionaire/compare/v1.8.0...v1.9.0) (2023-02-03)
 
 
