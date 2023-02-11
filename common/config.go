@@ -15,6 +15,7 @@ type Configuration struct {
 	DBUser     string `mapstructure:"DB_USER"`
 	DBPassword string `mapstructure:"DB_PASSWORD"`
 	DBName     string `mapstructure:"DB_NAME"`
+	SSLMode    string `mapstructure:"DB_SSL_MODE"`
 }
 
 func (c Configuration) GetServerPort() string {

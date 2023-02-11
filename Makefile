@@ -1,6 +1,6 @@
 .PHONY: dependencies migrate-create
 
-run: migrate-up
+run:
 	go run cmd/main.go
 
 test:

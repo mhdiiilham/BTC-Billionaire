@@ -10,8 +10,8 @@ import (
 
 func ConnectToSQL(cfg *Configuration) *sql.DB {
 	log.Printf("connecting to pgsql database=%s", cfg.DBHost)
-	datasource := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName)
+	datasource := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.SSLMode)
 
 	db, err := sql.Open("postgres", datasource)
 	if err != nil {
