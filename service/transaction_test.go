@@ -3,6 +3,7 @@ package service_test
 import (
 	"context"
 	"database/sql"
+	"sync"
 	"testing"
 	"time"
 
@@ -29,28 +30,34 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 		name     string
 		dateTime string
 		amount   float64
-		doMocks  func()
+		doMocks  func(wg *sync.WaitGroup)
 		expected error
 	}{
 		{
 			name:     "amount is less or equal than zero",
 			dateTime: "2019-10-05T14:45:05+07:00",
 			amount:   0,
-			doMocks:  func() {},
+			doMocks: func(wg *sync.WaitGroup) {
+				wg.Add(1)
+				wg.Done()
+			},
 			expected: service.ErrInvalidAmount,
 		},
 		{
 			name:     "failed to covert dateTime string to time.Time",
 			dateTime: "january the third",
 			amount:   10,
-			doMocks:  func() {},
+			doMocks: func(wg *sync.WaitGroup) {
+				wg.Add(1)
+				wg.Done()
+			},
 			expected: service.ErrInvalidDateTimeFormat,
 		},
 		{
 			name:     "success record new transaction to database",
 			dateTime: "2019-10-05T14:45:05+07:00",
 			amount:   10,
-			doMocks: func() {
+			doMocks: func(wg *sync.WaitGroup) {
 
 				trxTime, _ := time.Parse(time.RFC3339, "2019-10-05T14:45:05+07:00")
 				trx := model.Transaction{
@@ -65,11 +72,15 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 					Return(nil).
 					Times(1)
 
+				wg.Add(1)
 				suite.
 					mockTransactionRepository.
 					EXPECT().
 					UpdateHourlyBalance(gomock.Any(), trx).
 					Return(nil).
+					Do(func(arg0, arg1 interface{}) {
+						defer wg.Done()
+					}).
 					Times(1)
 			},
 			expected: nil,
@@ -78,7 +89,9 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 			name:     "failed record new transaction to database",
 			dateTime: "2019-10-05T14:45:05+07:00",
 			amount:   10,
-			doMocks: func() {
+			doMocks: func(wg *sync.WaitGroup) {
+				wg.Add(1)
+				wg.Done()
 
 				trxTime, _ := time.Parse(time.RFC3339, "2019-10-05T14:45:05+07:00")
 				suite.
@@ -96,7 +109,7 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 			name:     "failed to update balance",
 			dateTime: "2019-10-05T14:45:05+07:00",
 			amount:   10,
-			doMocks: func() {
+			doMocks: func(wg *sync.WaitGroup) {
 
 				trxTime, _ := time.Parse(time.RFC3339, "2019-10-05T14:45:05+07:00")
 				trx := model.Transaction{
@@ -111,11 +124,15 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 					Return(nil).
 					Times(1)
 
+				wg.Add(1)
 				suite.
 					mockTransactionRepository.
 					EXPECT().
 					UpdateHourlyBalance(gomock.Any(), trx).
 					Return(sql.ErrConnDone).
+					Do(func(arg0, arg1 interface{}) {
+						defer wg.Done()
+					}).
 					Times(1)
 			},
 			expected: nil,
@@ -125,11 +142,15 @@ func (suite *transactionTestsSuite) TestRecordNewTransaction() {
 	t := suite.T()
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
+			var wg sync.WaitGroup
+
 			ctx := context.Background()
-			tt.doMocks()
+			tt.doMocks(&wg)
 
 			svc := service.NewTransactionService(suite.mockTransactionRepository)
 			actual := svc.RecordNewTransaction(ctx, tt.dateTime, tt.amount)
+			wg.Wait()
+
 			assert.Equal(t, tt.expected, actual, "expected function NewTransactionRecord returning %v", tt.expected)
 		})
 	}

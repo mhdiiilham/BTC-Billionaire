@@ -43,9 +43,11 @@ func (s *TransactionService) RecordNewTransaction(ctx context.Context, dateTime 
 		return err
 	}
 
-	if err := s.transactionRepository.UpdateHourlyBalance(ctx, trx); err != nil {
-		logrus.Errorf("s.transactionRepository.UpdateHourlyBalance return an error %v", err)
-	}
+	go func() {
+		if err := s.transactionRepository.UpdateHourlyBalance(ctx, trx); err != nil {
+			logrus.Errorf("s.transactionRepository.UpdateHourlyBalance return an error %v", err)
+		}
+	}()
 
 	logrus.Info("success record new transaction")
 	return nil
